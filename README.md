@@ -1,2 +1,2 @@
 # ListPro
-A List App
+This is a indie list management app
