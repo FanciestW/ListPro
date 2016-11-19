@@ -39,6 +39,7 @@ public class allList extends AppCompatActivity {
 
                 Log.d("New List Details", title + ", " + desc);
                 //TODO::Store created list with title and desc in database
+                List newList = new List(title, desc);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
