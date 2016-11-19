@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#00A6ED"
+    tools:context="com.fanciestw.listpro.register">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textSize="52sp"
+        android:text="Welcome to ListPro"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="10dp"
+        android:background="#7FB800"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/registerEditName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="#BBFFFFFF"
+            android:fontFamily="monospace"
+            android:inputType="textPersonName"
+            android:hint="Your Name"/>
+
+        <EditText
+            android:id="@+id/registerEditEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="#BBFFFFFF"
+            android:fontFamily="monospace"
+            android:inputType="textEmailAddress"
+            android:hint="E-mail"/>
+
+        <EditText
+            android:id="@+id/registerEditPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="#BBFFFFFF"
+            android:fontFamily="monospace"
+            android:inputType="textPassword"
+            android:hint="Password"/>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="#33000000"
+            android:text="Register"/>
+
+        <TextView
+            android:id="@+id/textSignUpAlready"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:padding="20dp"
+            android:text="Already Have an Account"/>
+
+    </LinearLayout>
+
+</LinearLayout>
