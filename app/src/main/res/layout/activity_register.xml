@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center"
+    android:background="#0D2D54"
+    tools:context="com.fanciestw.listpro.register">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="60dp"
+        android:paddingBottom="60dp"
+        android:background="#AA00A6ED"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/registerEditName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:ems="10"
+            android:padding="10dp"
+            android:layout_margin="20dp"
+            android:background="#CCFFFFFF"
+            android:hint="Name"/>
+
+        <EditText
+            android:id="@+id/registerEditEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_margin="20dp"
+            android:background="#CCFFFFFF"
+            android:hint="Email"/>
+
+        <EditText
+            android:id="@+id/registerEditPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_margin="20dp"
+            android:background="#CCFFFFFF"
+            android:hint="Password"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
