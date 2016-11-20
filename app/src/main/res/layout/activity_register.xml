@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#00A6ED"
+    android:background="@color/mainBackgroundBlue"
     tools:context="com.fanciestw.listpro.register">
 
     <TextView
@@ -27,7 +27,7 @@
         android:paddingRight="40dp"
         android:paddingTop="40dp"
         android:paddingBottom="10dp"
-        android:background="#7FB800"
+        android:background="@color/mainBackgroundGreen"
         android:orientation="vertical">
 
         <EditText
@@ -37,7 +37,7 @@
             android:textAlignment="center"
             android:padding="10dp"
             android:layout_marginBottom="30dp"
-            android:background="#BBFFFFFF"
+            android:background="@color/whiteTransparentField"
             android:fontFamily="monospace"
             android:inputType="textPersonName"
             android:hint="Your Name"/>
@@ -49,7 +49,7 @@
             android:textAlignment="center"
             android:padding="10dp"
             android:layout_marginBottom="30dp"
-            android:background="#BBFFFFFF"
+            android:background="@color/whiteTransparentField"
             android:fontFamily="monospace"
             android:inputType="textEmailAddress"
             android:hint="E-mail"/>
@@ -61,7 +61,7 @@
             android:textAlignment="center"
             android:padding="10dp"
             android:layout_marginBottom="30dp"
-            android:background="#BBFFFFFF"
+            android:background="@color/whiteTransparentField"
             android:fontFamily="monospace"
             android:inputType="textPassword"
             android:hint="Password"/>
