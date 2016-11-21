@@ -77,7 +77,8 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="sans-serif"
             android:background="#33000000"
-            android:text="Register"/>
+            android:text="Register"
+            android:onClick="createUser"/>
 
         <TextView
             android:id="@+id/textSignUpAlready"
