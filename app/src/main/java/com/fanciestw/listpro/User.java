@@ -6,7 +6,7 @@ package com.fanciestw.listpro;
 
 public class User {
 
-    private String name, email;
+    public String name, email;
 
     User(String name, String email){
         this.name = name;
