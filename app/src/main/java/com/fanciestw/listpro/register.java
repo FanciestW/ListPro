@@ -2,6 +2,7 @@ package com.fanciestw.listpro;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,21 +65,33 @@ public class register extends AppCompatActivity {
 
     public void createUser(View view){
         //TODO::Validate user inputted info
-        final String name = registerEditName.getText().toString();
-        final String email = registerEditEmail.getText().toString();
-        final String password = registerEditPassword.getText().toString();
+        if(validateInfo()) {
+            final String name = registerEditName.getText().toString();
+            final String email = registerEditEmail.getText().toString();
+            final String password = registerEditPassword.getText().toString();
+            Log.d("User Info", "Name: " + name + "\tEmail: " + email + "\tPassword: " + password);
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            User newUser = new User(name, email);
+                            String uid = task.getResult().getUser().getUid();
+                            mDatabase.child(uid).setValue(newUser);
+                            signUserIn();
+                        }
+                    });
+        }
+    }
 
-        Log.d("User Info", "Name: " + name + "\tEmail: " + email + "\tPassword: " + password);
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        User newUser = new User(name, email);
-                        String uid = task.getResult().getUser().getUid();
-                        mDatabase.child(uid).setValue(newUser);
-                        signUserIn();
-                    }
-                });
+    public boolean validateInfo(){
+        if(registerEditName.getText().toString() == ""){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Please enter your name")
+                    .setTitle("Error");
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        return true;
     }
 
     public void signUserIn(){
