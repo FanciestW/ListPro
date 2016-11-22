@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/mainBackgroundBlue"
+    tools:context="com.fanciestw.listpro.register">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:fontFamily="serif"
+        android:textStyle="bold"
+        android:textSize="52sp"
+        android:text="Welcome to ListPro"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="11"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="15dp"
+        android:background="@color/mainBackgroundGreen"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/registerEditName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/whiteTransparentField"
+            android:fontFamily="sans-serif"
+            android:inputType="textPersonName"
+            android:hint="Your Name"/>
+
+        <EditText
+            android:id="@+id/registerEditEmail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/whiteTransparentField"
+            android:fontFamily="sans-serif"
+            android:inputType="textEmailAddress"
+            android:hint="E-mail"/>
+
+        <EditText
+            android:id="@+id/registerEditPassword"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/whiteTransparentField"
+            android:fontFamily="sans-serif"
+            android:inputType="textPassword"
+            android:hint="Password"/>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="sans-serif"
+            android:background="#33000000"
+            android:text="Register"
+            android:onClick="createUser"/>
+
+        <TextView
+            android:id="@+id/textSignUpAlready"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:padding="5dp"
+            android:text="Already Have an Account"/>
+
+    </LinearLayout>
+
+</LinearLayout>
