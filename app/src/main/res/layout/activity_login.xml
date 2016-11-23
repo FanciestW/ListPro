@@ -4,10 +4,54 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="100dp"
+    android:paddingBottom="100dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:background="@color/mainBackgroundBlue"
     tools:context="com.fanciestw.listpro.login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainBackgroundGreen"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:background="@color/whiteTransparentField"
+            android:layout_marginBottom="30dp"
+            android:hint="Email"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:background="@color/whiteTransparentField"
+            android:layout_marginBottom="30dp"
+            android:hint="Password"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#68ffff12"
+            android:text="Login"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Create an Account"
+            android:onClick="goToRegister"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
