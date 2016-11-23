@@ -10,7 +10,10 @@ public class login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Login Activity", "onCreate");
         setContentView(R.layout.activity_login);
+        Log.d("Login Activity", "onStart");
+        Log.d("Login Activity", "onStop");
     }
 
     public void goToRegister(View view){

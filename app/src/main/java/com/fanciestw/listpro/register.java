@@ -33,6 +33,7 @@ public class register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Register Activity", "onCreate");
         setContentView(R.layout.activity_register);
         registerEditName = (EditText)findViewById(R.id.registerEditName);
         registerEditEmail = (EditText)findViewById(R.id.registerEditEmail);
@@ -54,6 +55,7 @@ public class register extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
+        Log.d("Register Activity", "onStart");
         registerEditName.setText("");
         registerEditEmail.setText("");
         registerEditPassword.setText("");
@@ -64,6 +66,7 @@ public class register extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
+        Log.d("Register Activity", "onStop");
         if(mAuthStateListener != null) mAuth.removeAuthStateListener(mAuthStateListener);
     }
 
