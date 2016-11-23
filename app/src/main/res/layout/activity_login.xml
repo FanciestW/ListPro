@@ -16,10 +16,20 @@
         android:layout_height="match_parent"
         android:background="@color/mainBackgroundGreen"
         android:padding="20dp"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="Log In"/>
 
         <EditText
+            android:id="@+id/loginEditEmail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -29,6 +39,7 @@
             android:hint="Email"/>
 
         <EditText
+            android:id="@+id/loginEditPassword"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -38,16 +49,20 @@
             android:hint="Password"/>
 
         <Button
+            android:id="@+id/loginLoginButton"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#68ffff12"
-            android:text="Login"/>
+            android:layout_marginBottom="10dp"
+            android:text="Login"
+            android:onClick="login"/>
 
         <TextView
+            android:id="@+id/loginTextRegister"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:gravity="center"
             android:text="Create an Account"
             android:onClick="goToRegister"/>
