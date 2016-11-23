@@ -166,7 +166,8 @@ public class register extends AppCompatActivity {
         }
     }
 
-    public void goToLogin(){
-        //TODO::Create function to go to login activity
+    public void goToLogin(View view){
+        Intent intent = new Intent(this, login.class);
+        startActivity(intent);
     }
 }

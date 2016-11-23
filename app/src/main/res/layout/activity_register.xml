@@ -89,7 +89,8 @@
             android:textStyle="bold"
             android:fontFamily="sans-serif"
             android:padding="5dp"
-            android:text="Already Have an Account"/>
+            android:text="Already Have an Account"
+            android:onClick="goToLogin"/>
 
     </LinearLayout>
 
