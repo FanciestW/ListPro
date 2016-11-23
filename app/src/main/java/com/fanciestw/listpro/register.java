@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class register extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
     private EditText registerEditName;
@@ -39,7 +38,7 @@ public class register extends AppCompatActivity {
         registerEditEmail = (EditText)findViewById(R.id.registerEditEmail);
         registerEditPassword = (EditText)findViewById(R.id.registerEditPassword);
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener(){
+        mAuthStateListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -58,14 +57,14 @@ public class register extends AppCompatActivity {
         registerEditName.setText("");
         registerEditEmail.setText("");
         registerEditPassword.setText("");
-        mAuth.addAuthStateListener(mAuthListener);
+        mAuth.addAuthStateListener(mAuthStateListener);
         mAuth.signOut();
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        if(mAuthListener != null) mAuth.removeAuthStateListener(mAuthListener);
+        if(mAuthStateListener != null) mAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     public void createUser(View view) throws FirebaseAuthUserCollisionException{
