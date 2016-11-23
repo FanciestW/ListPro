@@ -71,7 +71,6 @@ public class register extends AppCompatActivity {
     }
 
     public void createUser(View view) throws FirebaseAuthUserCollisionException{
-        //TODO::Validate user inputted info
         if(validateInfo()) {
             final String name = registerEditName.getText().toString();
             final String email = registerEditEmail.getText().toString();
