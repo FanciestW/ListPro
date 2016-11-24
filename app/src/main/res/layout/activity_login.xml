@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="100dp"
+    android:paddingBottom="100dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:background="@color/mainBackgroundBlue"
+    tools:context="com.fanciestw.listpro.login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainBackgroundGreen"
+        android:padding="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="Log In"/>
+
+        <EditText
+            android:id="@+id/loginEditEmail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:background="@color/whiteTransparentField"
+            android:layout_marginBottom="30dp"
+            android:hint="Email"/>
+
+        <EditText
+            android:id="@+id/loginEditPassword"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:background="@color/whiteTransparentField"
+            android:layout_marginBottom="30dp"
+            android:hint="Password"/>
+
+        <Button
+            android:id="@+id/loginLoginButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#68ffff12"
+            android:layout_marginBottom="10dp"
+            android:text="Login"
+            android:onClick="login"/>
+
+        <TextView
+            android:id="@+id/loginTextRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:text="Create an Account"
+            android:onClick="goToRegister"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
