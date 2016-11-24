@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class register extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
@@ -33,12 +33,11 @@ public class register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Register Activity", "onCreate");
         setContentView(R.layout.activity_register);
+        Log.d("Register Activity", "onCreate");
         registerEditName = (EditText)findViewById(R.id.registerEditName);
         registerEditEmail = (EditText)findViewById(R.id.registerEditEmail);
         registerEditPassword = (EditText)findViewById(R.id.registerEditPassword);
-        mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
@@ -70,13 +69,14 @@ public class register extends AppCompatActivity {
         if(mAuthStateListener != null) mAuth.removeAuthStateListener(mAuthStateListener);
     }
 
-    public void createUser(View view) throws FirebaseAuthUserCollisionException{
+    public void createUser(View view){
         if(validateInfo()) {
             final String name = registerEditName.getText().toString();
             final String email = registerEditEmail.getText().toString();
             final String password = registerEditPassword.getText().toString();
             Log.d("User Info", "Name: " + name + "\tEmail: " + email + "\tPassword: " + password);
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
