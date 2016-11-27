@@ -22,9 +22,4 @@ public class List {
         this.listDescription = descr;
         this.dateCreated = format.format(cal.getTime());
     }
-
-    public String getTitle() { return this.listTitle; }
-    public String getDescription() { return this.listDescription; }
-    public ArrayList<String> getItems() { return this.items; }
-    public ArrayList<String> getShare() { return this.share; }
 }
