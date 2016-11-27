@@ -11,15 +11,14 @@ import java.util.ArrayList;
 
 public class List {
 
-    public String listTitle, listDescription, dateCreated;
-    public ArrayList<String> items = new ArrayList<>();
-    public ArrayList<String> share = new ArrayList<>();
+    public String listTitle, listDescription, dateCreated, user;
 
-    public List(String title, String descr){
+    public List(String title, String descr, String uid){
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         this.listTitle = title;
         this.listDescription = descr;
         this.dateCreated = format.format(cal.getTime());
+        this.user = uid;
     }
 }
