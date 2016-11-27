@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class List {
 
     public String listTitle, listDescription, dateCreated;
+    public ArrayList<String> items = new ArrayList<>();
     public ArrayList<String> share = new ArrayList<>();
 
     public List(String title, String descr){
@@ -24,5 +25,6 @@ public class List {
 
     public String getTitle() { return this.listTitle; }
     public String getDescription() { return this.listDescription; }
-
+    public ArrayList<String> getItems() { return this.items; }
+    public ArrayList<String> getShare() { return this.share; }
 }
