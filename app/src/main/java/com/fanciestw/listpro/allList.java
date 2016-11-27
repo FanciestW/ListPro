@@ -1,6 +1,8 @@
 package com.fanciestw.listpro;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,12 +13,48 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class allList extends AppCompatActivity {
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference mList = mDatabase.getReference().child("lists");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_list);
+        mAuthStateListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null) {
+                    Log.d("User Activity", "User Signed In");
+                } else {
+                    Log.d("User Activity", "User Signed Out");
+                    signout(getCurrentFocus());
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d("allList Activity", "onStart");
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d("allList Activity", "onStop");
+        if(mAuthStateListener != null) mAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     public void addNewList(View view){
@@ -39,7 +77,10 @@ public class allList extends AppCompatActivity {
 
                 Log.d("New List Details", title + ", " + desc);
                 //TODO::Store created list with title and desc in database
-                List newList = new List(title, desc);
+                List newList = new List(title, desc, mAuth.getCurrentUser().getUid());
+                String newListID = mList.push().getKey();
+                mList.child(newListID).setValue(newList);
+                //TODO::Test Adding new List
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -50,6 +91,12 @@ public class allList extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    public void signout(View view){
+        mAuth.signOut();
+        Intent intent = new Intent(this, login.class);
+        startActivity(intent);
     }
 }
 
