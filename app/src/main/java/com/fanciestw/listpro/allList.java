@@ -99,6 +99,3 @@ public class allList extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
-
-
