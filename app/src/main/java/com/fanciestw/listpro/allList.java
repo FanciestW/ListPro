@@ -56,10 +56,10 @@ public class allList extends AppCompatActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
             }
-                updateList();
+
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                updateList();
             }
 
             @Override
