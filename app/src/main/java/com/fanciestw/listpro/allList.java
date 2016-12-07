@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class allList extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class allList extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mList = mDatabase.getReference().child("lists");
+    private Query userLists = mList.child("users").equalTo(mAuth.getCurrentUser().getUid());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +46,17 @@ public class allList extends AppCompatActivity {
                 }
             }
         };
-        mList.addChildEventListener(new ChildEventListener() {
+        userLists.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                
+                updateList();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
             }
-
+                updateList();
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
@@ -120,6 +122,10 @@ public class allList extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    public void updateList(){
+
     }
 
     public void signout(View view){
