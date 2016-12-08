@@ -50,13 +50,13 @@ public class allList extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 updateList();
+                Log.d("userLists", userLists.toString());
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
             }
-                updateList();
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
