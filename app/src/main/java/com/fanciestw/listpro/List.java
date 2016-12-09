@@ -21,4 +21,6 @@ public class List {
         this.dateCreated = format.format(cal.getTime());
         this.user = uid;
     }
+
+    public List(){}
 }
