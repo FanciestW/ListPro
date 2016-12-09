@@ -28,7 +28,6 @@ public class allList extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mList = mDatabase.getReference().child("lists");
-    private Query userLists = mList.child("users").equalTo(mAuth.getCurrentUser().getUid());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +45,11 @@ public class allList extends AppCompatActivity {
                 }
             }
         };
-        userLists.addChildEventListener(new ChildEventListener() {
+        mList.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                updateList();
-                Log.d("userLists", userLists.toString());
+                List newList = dataSnapshot.getValue(List.class);
+                Log.d("List Returned", newList.listTitle + " " + newList.listDescription);
             }
 
             @Override
