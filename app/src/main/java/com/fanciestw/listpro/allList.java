@@ -110,7 +110,6 @@ public class allList extends AppCompatActivity {
                 List newList = new List(title, desc, mAuth.getCurrentUser().getUid());
                 String newListID = mList.push().getKey();
                 mList.child(newListID).setValue(newList);
-                //TODO::Test Adding new List
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
