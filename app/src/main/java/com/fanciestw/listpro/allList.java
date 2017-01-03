@@ -48,8 +48,12 @@ public class allList extends AppCompatActivity {
         mList.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                List newList = dataSnapshot.getValue(List.class);
-                Log.d("List Returned", newList.listTitle + " " + newList.listDescription);
+                Log.d("User/List Info", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(mAuth.getCurrentUser().getUid() == dataSnapshot.child("user").getValue()) {
+                    List newList = dataSnapshot.getValue(List.class);
+                    Log.d("List Returned", newList.listTitle + " " + newList.listDescription);
+                }
+                else Log.d("List Not Equal", (String)dataSnapshot.child("user").getValue());
                 updateList();
             }
 
