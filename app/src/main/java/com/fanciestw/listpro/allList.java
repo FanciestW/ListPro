@@ -50,6 +50,7 @@ public class allList extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 List newList = dataSnapshot.getValue(List.class);
                 Log.d("List Returned", newList.listTitle + " " + newList.listDescription);
+                updateList();
             }
 
             @Override
@@ -123,7 +124,6 @@ public class allList extends AppCompatActivity {
     }
 
     public void updateList(){
-
     }
 
     public void signout(View view){
