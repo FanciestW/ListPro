@@ -111,7 +111,6 @@ public class allList extends AppCompatActivity {
                 String desc = ((EditText)dialogView.findViewById(R.id.add_list_desc)).getText().toString();
 
                 Log.d("New List Details", title + ", " + desc);
-                //TODO::Store created list with title and desc in database
                 List newList = new List(title, desc, mAuth.getCurrentUser().getUid());
                 String newListID = mList.push().getKey();
                 mList.child(newListID).setValue(newList);
