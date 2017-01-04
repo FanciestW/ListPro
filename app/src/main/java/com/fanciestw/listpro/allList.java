@@ -45,30 +45,45 @@ public class allList extends AppCompatActivity {
                 }
             }
         };
+
         mList.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("User/List Info", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
-                if(mAuth.getCurrentUser().getUid() == dataSnapshot.child("user").getValue()) {
+                Log.d("List Added", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
                     List newList = dataSnapshot.getValue(List.class);
-                    Log.d("List Returned", newList.listTitle + " " + newList.listDescription);
-                }
-                else Log.d("List Not Equal", (String)dataSnapshot.child("user").getValue());
+                    Log.d("List Returned on Add", newList.listTitle + " " + newList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
                 updateList();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                Log.d("List Changed", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
+                    List newList = dataSnapshot.getValue(List.class);
+                    Log.d("List Returned on Change", newList.listTitle + " " + newList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
+                updateList();
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d("List Removed", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
+                    List newList = dataSnapshot.getValue(List.class);
+                    Log.d("List Returned on Remove", newList.listTitle + " " + newList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
                 updateList();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                Log.d("List Moved", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
+                    List newList = dataSnapshot.getValue(List.class);
+                    Log.d("List Returned on Remove", newList.listTitle + " " + newList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
+                updateList();
             }
 
             @Override
