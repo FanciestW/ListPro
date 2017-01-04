@@ -41,7 +41,7 @@ public class allList extends AppCompatActivity {
                     Log.d("User Activity", "User Signed In");
                 } else {
                     Log.d("User Activity", "User Signed Out");
-                    signout(getCurrentFocus());
+                    signOut(getCurrentFocus());
                 }
             }
         };
@@ -144,7 +144,7 @@ public class allList extends AppCompatActivity {
     public void updateList(){
     }
 
-    public void signout(View view){
+    public void signOut(View view){
         mAuth.signOut();
         Intent intent = new Intent(this, login.class);
         startActivity(intent);
