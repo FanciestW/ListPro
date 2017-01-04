@@ -69,6 +69,8 @@
             android:layout_height="0dp"
             android:layout_weight=".5"
             android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
             android:text="Create an Account"
             android:onClick="goToRegister"/>
 
