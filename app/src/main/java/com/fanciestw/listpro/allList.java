@@ -10,7 +10,9 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,12 +23,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class allList extends AppCompatActivity {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mList = mDatabase.getReference().child("lists");
+    public ArrayList<List> myLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,9 @@ public class allList extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d("List Added", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
-                    List newList = dataSnapshot.getValue(List.class);
-                    Log.d("List Returned on Add", newList.listTitle + " " + newList.listDescription);
+                    List rList = dataSnapshot.getValue(List.class);
+                    myLists.add(rList);
+                    Log.d("List Returned on Add", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
                 updateList();
             }
@@ -60,8 +66,8 @@ public class allList extends AppCompatActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Log.d("List Changed", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
-                    List newList = dataSnapshot.getValue(List.class);
-                    Log.d("List Returned on Change", newList.listTitle + " " + newList.listDescription);
+                    List rList = dataSnapshot.getValue(List.class);
+                    Log.d("List Returned on Change", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
                 updateList();
             }
@@ -69,8 +75,10 @@ public class allList extends AppCompatActivity {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Log.d("List Removed", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
-                    List newList = dataSnapshot.getValue(List.class);
-                    Log.d("List Returned on Remove", newList.listTitle + " " + newList.listDescription);
+                    List rList = dataSnapshot.getValue(List.class);
+                    //TODO::Make myList remove the removed list
+                    myLists.remove(rList);
+                    Log.d("List Returned on Remove", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
                 updateList();
             }
@@ -141,6 +149,9 @@ public class allList extends AppCompatActivity {
     }
 
     public void updateList(){
+        ListView listView = (ListView)findViewById(R.id.all_list_listView);
+        ArrayAdapter<List> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, myLists);
+        listView.setAdapter(arrayAdapter);
     }
 
     public void signOut(View view){
