@@ -150,7 +150,7 @@ public class allList extends AppCompatActivity {
 
     public void updateList(){
         ListView listView = (ListView)findViewById(R.id.all_list_listView);
-        ArrayAdapter<List> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, myLists);
+        AllListAdapter arrayAdapter = new AllListAdapter(this, allList);
         listView.setAdapter(arrayAdapter);
     }
 
