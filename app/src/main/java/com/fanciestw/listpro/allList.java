@@ -31,7 +31,7 @@ public class allList extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mList = mDatabase.getReference().child("lists");
-    public ArrayList<List> myLists = new ArrayList<>();
+    public ArrayList<List> allList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class allList extends AppCompatActivity {
                 Log.d("List Added", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
                     List rList = dataSnapshot.getValue(List.class);
-                    myLists.add(rList);
+                    allList.add(rList);
                     Log.d("List Returned on Add", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
                 updateList();
@@ -77,7 +77,7 @@ public class allList extends AppCompatActivity {
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
                     List rList = dataSnapshot.getValue(List.class);
                     //TODO::Make myList remove the removed list
-                    myLists.remove(rList);
+                    allList.remove(rList);
                     Log.d("List Returned on Remove", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
                 updateList();
