@@ -1,6 +1,8 @@
 package com.fanciestw.listpro;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,15 +10,108 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 public class allList extends AppCompatActivity {
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference mList = mDatabase.getReference().child("lists");
+    public ArrayList<List> allList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_list);
+        mAuthStateListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null) {
+                    Log.d("User Activity", "User Signed In");
+                } else {
+                    Log.d("User Activity", "User Signed Out");
+                    signOut(getCurrentFocus());
+                }
+            }
+        };
+
+        mList.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d("List Added", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
+                    List rList = dataSnapshot.getValue(List.class);
+                    allList.add(rList);
+                    Log.d("List Returned on Add", rList.listTitle + " " + rList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
+                updateList();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.d("List Changed", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
+                    List rList = dataSnapshot.getValue(List.class);
+                    Log.d("List Returned on Change", rList.listTitle + " " + rList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
+                updateList();
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d("List Removed", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
+                    List rList = dataSnapshot.getValue(List.class);
+                    //TODO::Make myList remove the removed list
+                    allList.remove(rList);
+                    Log.d("List Returned on Remove", rList.listTitle + " " + rList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
+                updateList();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.d("List Moved", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
+                    List newList = dataSnapshot.getValue(List.class);
+                    Log.d("List Returned on Remove", newList.listTitle + " " + newList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
+                updateList();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d("allList Activity", "onStart");
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d("allList Activity", "onStop");
+        if(mAuthStateListener != null) mAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     public void addNewList(View view){
@@ -38,8 +133,9 @@ public class allList extends AppCompatActivity {
                 String desc = ((EditText)dialogView.findViewById(R.id.add_list_desc)).getText().toString();
 
                 Log.d("New List Details", title + ", " + desc);
-                //TODO::Store created list with title and desc in database
-                List newList = new List(title, desc);
+                List newList = new List(title, desc, mAuth.getCurrentUser().getUid());
+                String newListID = mList.push().getKey();
+                mList.child(newListID).setValue(newList);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -51,7 +147,16 @@ public class allList extends AppCompatActivity {
 
         builder.show();
     }
+
+    public void updateList(){
+        ListView listView = (ListView)findViewById(R.id.all_list_listView);
+        AllListAdapter arrayAdapter = new AllListAdapter(this, allList);
+        listView.setAdapter(arrayAdapter);
+    }
+
+    public void signOut(View view){
+        mAuth.signOut();
+        Intent intent = new Intent(this, login.class);
+        startActivity(intent);
+    }
 }
-
-
-

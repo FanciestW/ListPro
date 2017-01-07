@@ -26,6 +26,7 @@
             android:textSize="32sp"
             android:textStyle="bold"
             android:gravity="center"
+            android:fontFamily="serif"
             android:text="Log In"/>
 
         <EditText
@@ -36,6 +37,8 @@
             android:textAlignment="center"
             android:background="@color/whiteTransparentField"
             android:layout_marginBottom="30dp"
+            android:fontFamily="sans-serif"
+            android:inputType="textEmailAddress"
             android:hint="Email"/>
 
         <EditText
@@ -46,6 +49,8 @@
             android:textAlignment="center"
             android:background="@color/whiteTransparentField"
             android:layout_marginBottom="30dp"
+            android:fontFamily="sans-serif"
+            android:inputType="textPassword"
             android:hint="Password"/>
 
         <Button
@@ -64,6 +69,8 @@
             android:layout_height="0dp"
             android:layout_weight=".5"
             android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
             android:text="Create an Account"
             android:onClick="goToRegister"/>
 

@@ -1,20 +1,26 @@
 package com.fanciestw.listpro;
 
-import java.util.Date;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
+
+import java.util.ArrayList;
 
 /**
  * Created by wlin on 11/12/16.
  */
 
 public class List {
-    private String listTitle, listDescription;
 
-    public List(String title, String descr){
+    public String listTitle, listDescription, dateCreated, user;
+
+    public List(String title, String descr, String uid){
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         this.listTitle = title;
         this.listDescription = descr;
+        this.dateCreated = format.format(cal.getTime());
+        this.user = uid;
     }
 
-    public String getTitle() { return this.listTitle; }
-    public String getDescription() { return this.listDescription; }
-
+    public List(){}
 }
