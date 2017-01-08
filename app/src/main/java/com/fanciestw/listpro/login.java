@@ -64,7 +64,6 @@ public class login extends AppCompatActivity {
     }
 
     public void login(View view){
-        //TODO::Log user in
         final String email = loginEditEmail.getText().toString();
         final String password = loginEditPassword.getText().toString();
         Log.d("User Login Info", "Email: " + email + " Password: " + password);
