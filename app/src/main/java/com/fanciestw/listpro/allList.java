@@ -135,6 +135,7 @@ public class allList extends AppCompatActivity {
                 Log.d("New List Details", title + ", " + desc);
                 List newList = new List(title, desc, mAuth.getCurrentUser().getUid());
                 String newListID = mList.push().getKey();
+                newList.setListID(newListID);
                 mList.child(newListID).setValue(newList);
             }
         });
