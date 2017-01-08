@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class List {
 
-    public String listTitle, listDescription, dateCreated, user;
+    public String listTitle, listDescription, dateCreated, user, listID;
 
     public List(String title, String descr, String uid){
         Calendar cal = Calendar.getInstance();
@@ -23,4 +23,6 @@ public class List {
     }
 
     public List(){}
+
+    public void setListID(String id){ this.listID = id; }
 }
