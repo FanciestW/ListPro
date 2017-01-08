@@ -69,7 +69,8 @@ public class login extends AppCompatActivity {
         Log.d("User Login Info", "Email: " + email + " Password: " + password);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        mAuth.signInWithEmailAndPassword(email, password)
+        //TODO:: REMOVE HARDCODED EMAIL AND PASSWORD FOR DEBUGGING ONLY!!!!
+        mAuth.signInWithEmailAndPassword("wlin26@yahoo.com", "Password")
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
