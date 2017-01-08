@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class allList extends AppCompatActivity {
 
@@ -76,8 +77,7 @@ public class allList extends AppCompatActivity {
                 Log.d("List Removed", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
                     List rList = dataSnapshot.getValue(List.class);
-                    //TODO::Make myList remove the removed list
-                    allList.remove(rList);
+                    removeList(rList);
                     Log.d("List Returned on Remove", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
                 updateList();
@@ -147,6 +147,15 @@ public class allList extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    public void removeList(List listToRemove){
+        for(int i = 0; i < allList.size(); i++){
+            if(allList.get(i).getListID() == listToRemove.getListID()){
+                allList.remove(i);
+            }
+        }
+        updateList();
     }
 
     public void updateList(){
