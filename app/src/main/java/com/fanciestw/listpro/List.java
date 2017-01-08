@@ -21,8 +21,17 @@ public class List {
         this.dateCreated = format.format(cal.getTime());
         this.user = uid;
     }
-
     public List(){}
 
+    public void setListTitle(String title){ this.listTitle = title; }
+    public void setListDescription(String description){ this.listDescription = description; }
+    public void setDateCreated(String date){ this.dateCreated = date; }
+    public void setUser(String user){ this.user = user; }
     public void setListID(String id){ this.listID = id; }
+
+    public String getListTitle(){ return this.listTitle; }
+    public String getListDescription(){ return this.listDescription; }
+    public String getDateCreated(){ return this.dateCreated; }
+    public String getUser(){ return this.user; }
+    public String getListID(){ return this.listID; }
 }
