@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class allList extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class allList extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mList = mDatabase.getReference().child("lists");
-    public ArrayList<List> allList = new ArrayList<>();
+    private AllListAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +51,18 @@ public class allList extends AppCompatActivity {
             }
         };
 
+        arrayAdapter = new AllListAdapter(this, new ArrayList<List>());
+        ListView listView = (ListView)findViewById(R.id.all_list_listView);
+        listView.setAdapter(arrayAdapter);
         mList.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d("List Added", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
                     List rList = dataSnapshot.getValue(List.class);
-                    allList.add(rList);
+                    arrayAdapter.add(rList);
                     Log.d("List Returned on Add", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
-                updateList();
             }
 
             @Override
@@ -69,18 +72,15 @@ public class allList extends AppCompatActivity {
                     List rList = dataSnapshot.getValue(List.class);
                     Log.d("List Returned on Change", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
-                updateList();
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Log.d("List Removed", "Current User: " + mAuth.getCurrentUser().getUid() + " List Owner: " + dataSnapshot.child("user").getValue());
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
                     List rList = dataSnapshot.getValue(List.class);
-                    //TODO::Make myList remove the removed list
-                    allList.remove(rList);
+                    removeList(rList);
                     Log.d("List Returned on Remove", rList.listTitle + " " + rList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
-                updateList();
             }
 
             @Override
@@ -90,7 +90,6 @@ public class allList extends AppCompatActivity {
                     List newList = dataSnapshot.getValue(List.class);
                     Log.d("List Returned on Remove", newList.listTitle + " " + newList.listDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
-                updateList();
             }
 
             @Override
@@ -135,6 +134,7 @@ public class allList extends AppCompatActivity {
                 Log.d("New List Details", title + ", " + desc);
                 List newList = new List(title, desc, mAuth.getCurrentUser().getUid());
                 String newListID = mList.push().getKey();
+                newList.setListID(newListID);
                 mList.child(newListID).setValue(newList);
             }
         });
@@ -148,10 +148,12 @@ public class allList extends AppCompatActivity {
         builder.show();
     }
 
-    public void updateList(){
-        ListView listView = (ListView)findViewById(R.id.all_list_listView);
-        AllListAdapter arrayAdapter = new AllListAdapter(this, allList);
-        listView.setAdapter(arrayAdapter);
+    public void removeList(List listToRemove){
+        for(int i = 0; i < arrayAdapter.getCount(); i++){
+            if(arrayAdapter.getItem(i).getListID() == listToRemove.getListID()){
+                arrayAdapter.remove(arrayAdapter.getItem(i));
+            }
+        }
     }
 
     public void signOut(View view){
