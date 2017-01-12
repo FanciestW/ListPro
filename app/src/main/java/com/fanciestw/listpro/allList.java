@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -54,6 +55,13 @@ public class allList extends AppCompatActivity {
         arrayAdapter = new AllListAdapter(this, new ArrayList<List>());
         ListView listView = (ListView)findViewById(R.id.all_list_listView);
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //TODO::onItemClick is not working when an item is clicked
+                Log.d("Test on Click", i + " " + l);
+            }
+        });
         mList.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
