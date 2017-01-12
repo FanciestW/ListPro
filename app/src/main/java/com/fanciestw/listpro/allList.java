@@ -59,6 +59,8 @@ public class allList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("Position", i + " " + l);
+                List clickedList  = arrayAdapter.getItem(i);
+                Log.d("List Clicked: ", clickedList.listTitle + " " + clickedList.getListDescription());
             }
         });
         mList.addChildEventListener(new ChildEventListener() {
