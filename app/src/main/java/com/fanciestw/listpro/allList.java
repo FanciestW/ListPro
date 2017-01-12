@@ -58,8 +58,7 @@ public class allList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO::onItemClick is not working when an item is clicked
-                Log.d("Test on Click", i + " " + l);
+                Log.d("Position", i + " " + l);
             }
         });
         mList.addChildEventListener(new ChildEventListener() {
