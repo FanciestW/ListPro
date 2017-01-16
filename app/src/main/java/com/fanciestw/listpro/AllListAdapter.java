@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,9 +27,9 @@ public class AllListAdapter extends ArrayAdapter<List> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
         //Get the data item for this position
-        List list = allList.get(position);
+        final List list = allList.get(position);
         //Check if an existing view is being reused, otherwise inflate the view
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.all_list_item_layout, parent, false);
@@ -40,6 +41,16 @@ public class AllListAdapter extends ArrayAdapter<List> {
         tvTitle.setText(list.listTitle);
         tvDesc.setText(list.listDescription);
         //Return the completed view to render on screen
+
+        ImageView deleteBtn = (ImageView)convertView.findViewById(R.id.itemdelete);
+        deleteBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if(context instanceof allList){
+                    ((com.fanciestw.listpro.allList)context).deleteList(position, list);
+                }
+            }
+        });
         return convertView;
     }
 }

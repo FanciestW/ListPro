@@ -158,6 +158,26 @@ public class allList extends AppCompatActivity {
         builder.show();
     }
 
+    public void deleteList(int position, final List list){
+        Log.d("Delete List", "Deleting list at position " + position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("DELETE LIST");
+        builder.setMessage("You are about to delete \"" + list.getListTitle() + "\"\nAre You Sure?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                Log.d("List removed", "List to remove " + list.getListTitle());
+                mList.child(list.getListID()).removeValue();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                Log.d("List not removed", "List not removed " + list.getListTitle());
+            }
+        });
+
+        builder.show();
+    }
+
     public void removeList(List listToRemove){
         for(int i = 0; i < arrayAdapter.getCount(); i++){
             if(arrayAdapter.getItem(i).getListID() == listToRemove.getListID()){
