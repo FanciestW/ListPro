@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -54,6 +55,14 @@ public class allList extends AppCompatActivity {
         arrayAdapter = new AllListAdapter(this, new ArrayList<List>());
         ListView listView = (ListView)findViewById(R.id.all_list_listView);
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("Position", i + " " + l);
+                List clickedList  = arrayAdapter.getItem(i);
+                Log.d("List Clicked: ", clickedList.listTitle + " " + clickedList.getListDescription());
+            }
+        });
         mList.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -71,6 +80,7 @@ public class allList extends AppCompatActivity {
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
                     List rList = dataSnapshot.getValue(List.class);
                     Log.d("List Returned on Change", rList.listTitle + " " + rList.listDescription);
+                    updateAList(rList);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
             }
             @Override
@@ -152,6 +162,16 @@ public class allList extends AppCompatActivity {
         for(int i = 0; i < arrayAdapter.getCount(); i++){
             if(arrayAdapter.getItem(i).getListID() == listToRemove.getListID()){
                 arrayAdapter.remove(arrayAdapter.getItem(i));
+            }
+        }
+    }
+
+    public void updateAList(List updatedList){
+        Log.d("Trying to update a List", updatedList.listTitle);
+        for(int i = 0; i < arrayAdapter.getCount(); i++){
+            if(arrayAdapter.getItem(i).getListID() == updatedList.getListID()){
+                arrayAdapter.allList.set(i, updatedList);
+                arrayAdapter.notifyDataSetChanged();
             }
         }
     }
