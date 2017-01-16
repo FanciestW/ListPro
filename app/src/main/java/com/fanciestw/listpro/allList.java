@@ -80,6 +80,7 @@ public class allList extends AppCompatActivity {
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())){
                     List rList = dataSnapshot.getValue(List.class);
                     Log.d("List Returned on Change", rList.listTitle + " " + rList.listDescription);
+                    //TODO::Update a list when a change to a list is made.
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
             }
             @Override
