@@ -172,6 +172,7 @@ public class allList extends AppCompatActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){
                 Log.d("List not removed", "List not removed " + list.getListTitle());
+                dialog.cancel();
             }
         });
 
