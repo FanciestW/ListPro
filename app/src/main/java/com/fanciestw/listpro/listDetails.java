@@ -28,7 +28,7 @@ public class listDetails extends AppCompatActivity {
             Date date = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy").parse(list.getDateCreated());
             listDateText.setText("Date Created: " + formatter.format(date));
         } catch(ParseException ex){
-
+            Log.e("ParseException", ex.getMessage());
         }
     }
 }
