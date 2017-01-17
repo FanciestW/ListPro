@@ -57,6 +57,10 @@ public class allList extends AppCompatActivity {
                 Log.d("Position", i + " " + l);
                 List clickedList  = arrayAdapter.getItem(i);
                 Log.d("List Clicked: ", clickedList.listTitle + " " + clickedList.getListDescription());
+                Intent intent = new Intent(getBaseContext(), listDetails.class);
+                intent.putExtra("Position", i);
+                //TODO::putExtra and use serialize list and pass it over.
+                startActivity(intent);
             }
         });
         mList.addChildEventListener(new ChildEventListener() {
