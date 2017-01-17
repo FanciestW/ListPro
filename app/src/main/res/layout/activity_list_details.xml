@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_list_details"
     android:layout_width="match_parent"
@@ -11,47 +11,65 @@
     android:orientation="vertical"
     android:background="@color/mainBackgroundBlue"
     tools:context="com.fanciestw.listpro.listDetails">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="0dp"
-        android:layout_weight="1.8">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/listDetail_Title"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_weight="1.8">
+
+            <TextView
+                android:id="@+id/listDetail_Title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:text="List Title"/>
+
+            <TextView
+                android:id="@+id/listDetail_Description"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:textSize="16sp"
+                android:layout_weight=".5"
+                android:layout_below="@+id/listDetail_Title"
+                android:text="List Description"/>
+
+            <TextView
+                android:id="@+id/listDetail_DateCreated"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".5"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:text="Date Created"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listDetail_items_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:text="List Title"/>
+            android:layout_weight="10">
 
-        <TextView
-            android:id="@+id/listDetail_Description"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:textSize="16sp"
-            android:layout_weight=".5"
-            android:layout_below="@+id/listDetail_Title"
-            android:text="List Description"/>
-
-        <TextView
-            android:id="@+id/listDetail_DateCreated"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".5"
-            android:textSize="12sp"
-            android:textStyle="italic"
-            android:text="Date Created"/>
+        </ListView>
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listDetail_items_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnAddItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:src="@drawable/ic_add_black_24dp"
+        android:onClick="addNewItem"/>
 
-    </ListView>
-</LinearLayout>
+</RelativeLayout>
