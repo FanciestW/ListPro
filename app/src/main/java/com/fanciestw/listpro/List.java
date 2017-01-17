@@ -1,6 +1,5 @@
 package com.fanciestw.listpro;
 
-import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,10 +15,9 @@ public class List implements Parcelable {
     public String listTitle, listDescription, dateCreated, user, listID;
 
     public List(String title, String descr, String uid){
-        Calendar cal = Calendar.getInstance();
         this.listTitle = title;
         this.listDescription = descr;
-        this.dateCreated = cal.getTime().toString();
+        this.dateCreated = Calendar.getInstance().getTime().toString();
         this.user = uid;
     }
     public List(){}
