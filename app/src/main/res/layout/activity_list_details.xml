@@ -17,15 +17,27 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:textSize="32sp"
+        android:textStyle="bold"
         android:text="List Title"/>
 
     <TextView
         android:id="@+id/listDetail_Description"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:textSize="16sp"
+        android:layout_weight=".5"
         android:layout_below="@+id/listDetail_Title"
         android:text="List Description"/>
+
+    <TextView
+        android:id="@+id/listDetail_DateCreated"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:text="Date Created"/>
 
     <ListView
         android:id="@+id/listDetail_items_list"
