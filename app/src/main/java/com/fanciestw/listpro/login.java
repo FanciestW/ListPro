@@ -70,43 +70,56 @@ public class login extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         //TODO:: REMOVE HARDCODED EMAIL AND PASSWORD FOR DEBUGGING ONLY!!!!
-        mAuth.signInWithEmailAndPassword("wlin26@yahoo.com", "Password")
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                        if(task.isSuccessful()) {
-                            Log.d("Login Successful", "Signed in with email: " + email);
-                            Intent intent = new Intent(getBaseContext(), allList.class);
-                            startActivity(intent);
-                        } else {
-                            Log.d("Login Un-successful", "Sign in with email: " + email + " failed");
-                            try{
-                                throw task.getException();
-                            } catch(FirebaseAuthInvalidCredentialsException ex){
-                                builder.setMessage("Invalid Credentials")
-                                        .setTitle("Sorry");
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
-                            } catch(FirebaseAuthException ex){
-                                builder.setMessage("FirebaseAuth Exception")
-                                        .setTitle(ex.getMessage());
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
-                            } catch(Exception ex){
-                                builder.setMessage("Exception Caught")
-                                        .setTitle(ex.getMessage());
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
+        try {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            if (task.isSuccessful()) {
+                                Log.d("Login Successful", "Signed in with email: " + email);
+                                Intent intent = new Intent(getBaseContext(), allList.class);
+                                startActivity(intent);
+                            } else {
+                                Log.d("Login Un-successful", "Sign in with email: " + email + " failed");
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthInvalidCredentialsException ex) {
+                                    builder.setMessage("Invalid Credentials")
+                                            .setTitle("Sorry");
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                } catch (FirebaseAuthException ex) {
+                                    builder.setMessage("FirebaseAuth Exception")
+                                            .setTitle(ex.getMessage());
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                } catch (Exception ex) {
+                                    builder.setMessage("Exception Caught")
+                                            .setTitle(ex.getMessage());
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        } catch (IllegalArgumentException ex){
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.setMessage(ex.getMessage())
+                    .setTitle("IllegalArgument Exception");
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
     public void goToRegister(View view){
