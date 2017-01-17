@@ -19,7 +19,7 @@ public class ListItem {
 
     public void setItemTitle(String title){ this.itemTitle = title; }
     public void setItemDescription(String desc){ this.itemDescription = desc; }
-    public void setitemID(String id){ this.itemID = id; }
+    public void setItemID(String id){ this.itemID = id; }
     public void setUser(String uid){ this.user = uid; }
 
     public String getItemTitle(){ return itemTitle; }
