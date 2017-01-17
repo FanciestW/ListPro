@@ -17,10 +17,9 @@ public class List implements Parcelable {
 
     public List(String title, String descr, String uid){
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         this.listTitle = title;
         this.listDescription = descr;
-        this.dateCreated = format.format(cal.getTime());
+        this.dateCreated = cal.getTime().toString();
         this.user = uid;
     }
     public List(){}
