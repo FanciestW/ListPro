@@ -24,7 +24,6 @@ public class List implements Parcelable {
 
     public void setListTitle(String title){ this.listTitle = title; }
     public void setListDescription(String description){ this.listDescription = description; }
-    public void setDateCreated(String date){ this.dateCreated = date; }
     public void setUser(String user){ this.user = user; }
     public void setListID(String id){ this.listID = id; }
 
