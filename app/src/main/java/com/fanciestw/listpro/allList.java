@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class allList extends AppCompatActivity {
@@ -56,10 +57,12 @@ public class allList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("Position", i + " " + l);
                 List clickedList  = arrayAdapter.getItem(i);
+                Bundle mBundle = new Bundle();
+                mBundle.putParcelable("ListParcelable", clickedList);
                 Log.d("List Clicked: ", clickedList.listTitle + " " + clickedList.getListDescription());
                 Intent intent = new Intent(getBaseContext(), listDetails.class);
                 intent.putExtra("Position", i);
-                //TODO::putExtra and use serialize list and pass it over.
+                intent.putExtras(mBundle);
                 startActivity(intent);
             }
         });
