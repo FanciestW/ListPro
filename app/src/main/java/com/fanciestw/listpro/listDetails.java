@@ -23,10 +23,6 @@ public class listDetails extends AppCompatActivity {
         Log.d("List Name:", list.getListTitle());
         listTitleText.setText(list.getListTitle());
         listDescText.setText(list.getListDescription());
-//        String date = list.getDateCreated();
-//        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-//        Date newDate = parser.parse(date);
-//        SimpleDateFormat formatter = new SimpleDateFormat()
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
         try {
             Date date = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy").parse(list.getDateCreated());
