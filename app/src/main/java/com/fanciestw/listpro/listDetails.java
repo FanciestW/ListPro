@@ -46,20 +46,7 @@ public class listDetails extends AppCompatActivity {
                 }
             }
         };
-        TextView listTitleText = (TextView)findViewById(R.id.listDetail_Title);
-        TextView listDescText = (TextView)findViewById(R.id.listDetail_Description);
-        TextView listDateText = (TextView)findViewById(R.id.listDetail_DateCreated);
-        list = getIntent().getParcelableExtra("ListParcelable");
-        Log.d("List Name:", list.getListTitle());
-        listTitleText.setText(list.getListTitle());
-        listDescText.setText(list.getListDescription());
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-        try {
-            Date date = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy").parse(list.getDateCreated());
-            listDateText.setText("Date Created: " + formatter.format(date));
-        } catch(ParseException ex){
-            Log.e("ParseException", ex.getMessage());
-        }
+        setItemDetails();
     }
 
     @Override
@@ -115,5 +102,22 @@ public class listDetails extends AppCompatActivity {
         mAuth.signOut();
         Intent intent = new Intent(this, login.class);
         startActivity(intent);
+    }
+
+    public void setItemDetails(){
+        TextView listTitleText = (TextView)findViewById(R.id.listDetail_Title);
+        TextView listDescText = (TextView)findViewById(R.id.listDetail_Description);
+        TextView listDateText = (TextView)findViewById(R.id.listDetail_DateCreated);
+        list = getIntent().getParcelableExtra("ListParcelable");
+        Log.d("List Name:", list.getListTitle());
+        listTitleText.setText(list.getListTitle());
+        listDescText.setText(list.getListDescription());
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+        try {
+            Date date = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy").parse(list.getDateCreated());
+            listDateText.setText("Date Created: " + formatter.format(date));
+        } catch(ParseException ex){
+            Log.e("ParseException", ex.getMessage());
+        }
     }
 }
