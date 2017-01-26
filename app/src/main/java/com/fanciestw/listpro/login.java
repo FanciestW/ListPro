@@ -71,7 +71,7 @@ public class login extends AppCompatActivity {
 
         //TODO:: REMOVE HARDCODED EMAIL AND PASSWORD FOR DEBUGGING ONLY!!!!
         try {
-            mAuth.signInWithEmailAndPassword(email, password)
+            mAuth.signInWithEmailAndPassword("wlin26@yahoo.com", "Password")
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
