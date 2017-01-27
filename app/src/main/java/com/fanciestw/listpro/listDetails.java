@@ -27,7 +27,9 @@ public class listDetails extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference mListItems = mDatabase.getReference().child("lists");
+    private DatabaseReference mLists = mDatabase.getReference().child("lists");
+    private DatabaseReference mThisList;
+    private DatabaseReference mThisListItems;
     private AllListAdapter arrayAdapter;
 
     @Override
@@ -84,9 +86,9 @@ public class listDetails extends AppCompatActivity {
 
                 Log.d("New ListItem Details", title + ", " + desc);
                 ListItem newListItem = new ListItem(title, desc, mAuth.getCurrentUser().getUid());
-                String newListID = mListItems.push().getKey();
-                newListItem.setItemID(newListID);
-                mListItems.child(list.getListID()).child("items").child(newListID).setValue(newListItem);
+                String newListItemID = mThisListItems.push().getKey();
+                newListItem.setItemID(newListItemID);
+                mThisListItems.child(newListItemID).setValue(newListItem);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -111,6 +113,8 @@ public class listDetails extends AppCompatActivity {
         TextView listDateText = (TextView)findViewById(R.id.listDetail_DateCreated);
         list = getIntent().getParcelableExtra("ListParcelable");
         Log.d("List Name:", list.getListTitle());
+        mThisList = mLists.child(list.getListID());
+        mThisListItems = mThisList.child("items");
         listTitleText.setText(list.getListTitle());
         listDescText.setText(list.getListDescription());
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
