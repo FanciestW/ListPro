@@ -54,7 +54,7 @@ public class listDetails extends AppCompatActivity {
             }
         };
         setItemDetails();
-        arrayAdapter = new ListItemAdapter(this, new ArrayList<List>());
+        arrayAdapter = new ListItemAdapter(this, new ArrayList<ListItem>());
         ListView listView = (ListView)findViewById(R.id.listDetail_items_list);
         listView.setAdapter(arrayAdapter);
         //TODO::Add ChildEventListener for listItems
@@ -62,20 +62,28 @@ public class listDetails extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
-                    List rList = dataSnapshot.getValue(List.class);
-                    arrayAdapter.add(rList);
-                    Log.d("List Returned on Add", rList.listTitle + " " + rList.listDescription);
+                    ListItem rItem = dataSnapshot.getValue(ListItem.class);
+                    arrayAdapter.add(rItem);
+                    Log.d("List Returned on Add", rItem.itemTitle + " " + rItem.itemDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
+                    ListItem rItem = dataSnapshot.getValue(ListItem.class);
+                    arrayAdapter.add(rItem);
+                    Log.d("List Returned on Add", rItem.itemTitle + " " + rItem.itemDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
+                    ListItem rItem = dataSnapshot.getValue(ListItem.class);
+                    removeListItem(rItem);
+                    Log.d("List Returned on Add", rItem.itemTitle + " " + rItem.itemDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
             }
 
             @Override
@@ -137,6 +145,35 @@ public class listDetails extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    public void deleteListItem(int position, final ListItem listItem){
+        Log.d("Delete ListItem", "Deleting listItem at position " + position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("DELETE ITEM");
+        builder.setMessage("You are about to delete \"" + listItem.getItemTitle() + "\"\nAre You Sure?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                Log.d("List removed", "List to remove " + list.getListTitle());
+                mThisListItems.child(listItem.getItemID()).removeValue();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                Log.d("List Item not removed", "List not removed " + listItem.getItemTitle());
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void removeListItem(ListItem itemToRemove){
+        for(int i = 0; i < arrayAdapter.getCount(); i++){
+            if(arrayAdapter.getItem(i).getItemID() == itemToRemove.getItemID()){
+                arrayAdapter.remove(arrayAdapter.getItem(i));
+            }
+        }
     }
 
     public void signOut(View view){
