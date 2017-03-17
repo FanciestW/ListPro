@@ -57,7 +57,6 @@ public class listDetails extends AppCompatActivity {
         arrayAdapter = new ListItemAdapter(this, new ArrayList<ListItem>());
         ListView listView = (ListView)findViewById(R.id.listDetail_items_list);
         listView.setAdapter(arrayAdapter);
-        //TODO::Add ChildEventListener for listItems
         mThisListItems.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
