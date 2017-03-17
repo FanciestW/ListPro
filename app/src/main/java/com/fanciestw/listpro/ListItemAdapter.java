@@ -14,12 +14,12 @@ import java.util.ArrayList;
  * Created by William on 3/16/2017.
  */
 
-public class ListItemAdapter extends ArrayAdapter<List> {
+public class ListItemAdapter extends ArrayAdapter<ListItem> {
     Context context;
     int layoutResourceId;
-    ArrayList<List> allList = null;
+    ArrayList<ListItem> allList = null;
 
-    public ListItemAdapter(Context context, ArrayList<List> allList){
+    public ListItemAdapter(Context context, ArrayList<ListItem> allList){
         super(context, 0, allList);
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -29,7 +29,7 @@ public class ListItemAdapter extends ArrayAdapter<List> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent){
         //Get the data item for this position
-        final List list = allList.get(position);
+        final ListItem listItem = allList.get(position);
         //Check if an existing view is being reused, otherwise inflate the view
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.all_list_item_layout, parent, false);
@@ -38,16 +38,16 @@ public class ListItemAdapter extends ArrayAdapter<List> {
         TextView tvTitle = (TextView)convertView.findViewById(R.id.list_item_title);
         TextView tvDesc = (TextView)convertView.findViewById(R.id.list_item_desc);
         //Populate the date into the template view using the data object
-        tvTitle.setText(list.listTitle);
-        tvDesc.setText(list.listDescription);
+        tvTitle.setText(listItem.itemTitle);
+        tvDesc.setText(listItem.itemDescription);
         //Return the completed view to render on screen
 
         ImageView deleteBtn = (ImageView)convertView.findViewById(R.id.itemdelete);
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                if(context instanceof allList){
-                    ((com.fanciestw.listpro.allList)context).deleteList(position, list);
+                if(context instanceof listDetails){
+                    ((com.fanciestw.listpro.listDetails)context).deleteListItem(position, listItem);
                 }
             }
         });
