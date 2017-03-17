@@ -11,14 +11,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class listDetails extends AppCompatActivity {
@@ -30,7 +35,7 @@ public class listDetails extends AppCompatActivity {
     private DatabaseReference mLists = mDatabase.getReference().child("lists");
     private DatabaseReference mThisList;
     private DatabaseReference mThisListItems;
-    private AllListAdapter arrayAdapter;
+    private ListItemAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,40 @@ public class listDetails extends AppCompatActivity {
             }
         };
         setItemDetails();
+        arrayAdapter = new ListItemAdapter(this, new ArrayList<List>());
+        ListView listView = (ListView)findViewById(R.id.listDetail_items_list);
+        listView.setAdapter(arrayAdapter);
         //TODO::Add ChildEventListener for listItems
+        mThisListItems.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
+                    List rList = dataSnapshot.getValue(List.class);
+                    arrayAdapter.add(rList);
+                    Log.d("List Returned on Add", rList.listTitle + " " + rList.listDescription);
+                } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
