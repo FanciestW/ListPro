@@ -146,6 +146,10 @@ public class listDetails extends AppCompatActivity {
         builder.show();
     }
 
+    public void checkOnOff(int position, final ListItem listItem, boolean valueToSet){
+        mThisListItems.child(listItem.itemID).child("checked").setValue(valueToSet);
+    }
+
     public void deleteListItem(int position, final ListItem listItem){
         Log.d("Delete ListItem", "Deleting listItem at position " + position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

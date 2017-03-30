@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 public class ListItem {
     public String itemTitle, itemDescription, dateCreated, itemID, user;
+    public boolean checked;
 
     public ListItem(){}
     public ListItem(String title, String desc, String uid){
@@ -15,6 +16,7 @@ public class ListItem {
         this.itemDescription = desc;
         this.user = uid;
         this.dateCreated = Calendar.getInstance().getTime().toString();
+        this.checked = false;
     }
 
     public void setItemTitle(String title){ this.itemTitle = title; }

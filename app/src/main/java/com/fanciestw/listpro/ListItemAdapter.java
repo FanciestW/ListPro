@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,13 +38,15 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         //Lookup view for data population
         TextView tvTitle = (TextView)convertView.findViewById(R.id.list_item_title);
         TextView tvDesc = (TextView)convertView.findViewById(R.id.list_item_desc);
+        final CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.list_item_checkBox);
         //Populate the date into the template view using the data object
         tvTitle.setText(listItem.itemTitle);
         tvDesc.setText(listItem.itemDescription);
+        checkBox.setChecked(listItem.checked);
         //Return the completed view to render on screen
 
         ImageView deleteBtn = (ImageView)convertView.findViewById(R.id.itemdelete);
-        deleteBtn.setOnClickListener(new View.OnClickListener(){
+        deleteBtn.setOnClickListener(new View.OnClickListener(){    //Onclick Listener handler for trash button
             @Override
             public void onClick(View view){
                 if(context instanceof listDetails){
@@ -51,6 +54,15 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
                 }
             }
         });
+        checkBox.setOnClickListener(new View.OnClickListener(){
+           @Override
+            public void onClick(View view){
+               if(context instanceof listDetails){
+                   ((com.fanciestw.listpro.listDetails)context).checkOnOff(position, listItem, checkBox.isChecked());
+               }
+           }
+        });
+
         return convertView;
     }
 
