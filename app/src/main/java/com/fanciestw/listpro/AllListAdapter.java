@@ -53,4 +53,14 @@ public class AllListAdapter extends ArrayAdapter<List> {
         });
         return convertView;
     }
+
+    public void updateAllList(List updatedList){
+        for(int i = 0; i < allList.size(); i++){
+            if(allList.get(i).listID == updatedList.listID){
+                allList.set(i, updatedList);
+                this.notifyDataSetChanged();
+                break;
+            }
+        }
+    }
 }
