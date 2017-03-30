@@ -71,7 +71,7 @@ public class listDetails extends AppCompatActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.child("user").getValue().equals(mAuth.getCurrentUser().getUid())) {
                     ListItem rItem = dataSnapshot.getValue(ListItem.class);
-                    arrayAdapter.add(rItem);
+                    arrayAdapter.updateListItem(rItem);
                     Log.d("List Returned on Add", rItem.itemTitle + " " + rItem.itemDescription);
                 } else Log.d("List Does Not Belong", "Belongs to: " + dataSnapshot.child("user").getValue());
             }

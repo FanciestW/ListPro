@@ -53,4 +53,14 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         });
         return convertView;
     }
+
+    public void updateListItem(ListItem updatedListItem){
+        for(int i = 0; i < allList.size(); i++){
+            if(allList.get(i).itemID == updatedListItem.itemID){
+                allList.set(i, updatedListItem);
+                this.notifyDataSetChanged();
+                break;
+            }
+        }
+    }
 }
